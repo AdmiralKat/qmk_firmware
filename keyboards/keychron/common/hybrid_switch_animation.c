@@ -2,15 +2,9 @@
 #include "quantum.h"
 #include "indicator.h"
 #include "lpm.h"
-#if defined(PROTOCOL_CHIBIOS)
-#    include <usb_main.h>
-#elif if defined(PROTOCOL_LUFA)
-#    include "lufa.h"
-#endif
 #include "eeprom.h"
 
 #if (defined(LED_MATRIX_ENABLE) || defined(RGB_MATRIX_ENABLE))
-
 #ifndef ANI_GROWING_INTERVAL
 #    define ANI_GROWING_INTERVAL 300
 #endif
@@ -80,9 +74,7 @@ void switch_animation_indicate(void) {
 
 #ifdef RGB_MATRIX_ENABLE
 
-    // for (uint8_t i = 0; i <= RGB_MATRIX_LED_COUNT; i++) {
-    //     rgb_matrix_set_color(i, 0, 0, 0);
-    // }
+    rgb_matrix_set_color_all(0,0,0);
 
     if (animation_state == ANI_GROWING) {
         if(cur_is_switch_orgb){
